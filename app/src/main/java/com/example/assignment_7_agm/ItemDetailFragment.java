@@ -11,16 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.example.assignment_7_agm.placeholder.ModelContent;
 import com.example.assignment_7_agm.databinding.FragmentItemDetailBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -108,7 +118,8 @@ public class ItemDetailFragment extends Fragment {
                 @Override
                 public void onClick(View view)
                 {
-
+                    ModelContent modelContent = new ModelContent();
+                    modelContent.setExerciseModels(getActivity(), mTextView);
 
 
                 }
@@ -116,5 +127,6 @@ public class ItemDetailFragment extends Fragment {
         }
 
     }
+
 
 }

@@ -11,6 +11,7 @@ public class Model {
     @SerializedName("recentConsole")
     private String recentConsole;
 
+
     //Initializer for model
     public Model(final String name, final Integer year, final String latestConsole) {
         this.companyName = name;
