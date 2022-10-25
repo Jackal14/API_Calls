@@ -9,6 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -32,8 +33,8 @@ public class ModelContent {
     public static final List<Model> MODELS = new ArrayList<>();
     public static final Map<String, Model> MODELS_MAP = new HashMap<>();
 
-//    public static final List<ExerciseModel> EXERCISE_MODELS = new ArrayList<>();
-//    public static final Map<String, ExerciseModel> EXERCISE_MODEL_MAP = new HashMap<>();
+    public static final List<ExerciseModel> EXERCISE_MODELS = new ArrayList<>();
+    public static final Map<String, ExerciseModel> EXERCISE_MODEL_MAP = new HashMap<>();
 
     private static boolean BUILT = false;
 
@@ -42,22 +43,31 @@ public class ModelContent {
         RequestQueue queue2 = Volley.newRequestQueue(activity);
         String url = "https://exercisedb.p.rapidapi.com/exercises/bodyPart/back";
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+        JsonArrayRequest jsonObjReq = new JsonArrayRequest(Request.Method.GET,
                 url, null,
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         //textView.setText(response);
-                        try{
-                            JSONObject object = response.getJSONObject("");
-                            String json = String.valueOf(response);
+                        JSONArray array = response;
+
+                        EXERCISE_MODELS.clear();
+                        EXERCISE_MODEL_MAP.clear();
+                        for(int i = 0; i < response.length(); i++)
+                        {
+                            String json = null;
+                            try {
+                                json = String.valueOf(response.getJSONObject(i));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Gson gson = new Gson();
                             ExerciseModel model = gson.fromJson(json, ExerciseModel.class);
 
+                            EXERCISE_MODELS.add(model);
+                            EXERCISE_MODEL_MAP.put(model.getBodyPartName(), model);
                         }
-                        catch(JSONException e){
-                            e.printStackTrace();
-                        }
+
 
                     }
                 },

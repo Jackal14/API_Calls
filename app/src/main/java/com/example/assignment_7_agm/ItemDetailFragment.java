@@ -1,5 +1,7 @@
 package com.example.assignment_7_agm;
 
+import static com.example.assignment_7_agm.placeholder.ModelContent.EXERCISE_MODELS;
+
 import android.content.ClipData;
 import android.os.Bundle;
 import android.view.DragEvent;
@@ -118,10 +120,14 @@ public class ItemDetailFragment extends Fragment {
                 @Override
                 public void onClick(View view)
                 {
+                    mTextView.setSingleLine(false);
                     ModelContent modelContent = new ModelContent();
                     modelContent.setExerciseModels(getActivity(), mTextView);
 
-
+                    for(int i = 0; i < EXERCISE_MODELS.size(); i++)
+                    {
+                        mTextView.append(EXERCISE_MODELS.get(i).getExerciseName() + "\n");
+                    }
                 }
             });
         }

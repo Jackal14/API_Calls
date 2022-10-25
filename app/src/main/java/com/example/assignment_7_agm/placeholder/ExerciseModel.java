@@ -32,6 +32,7 @@ public class ExerciseModel {
     //Getters
     public String getBodyPartName() {return bodyPartName;}
     public String getEquipmentNeeded() {return equipmentNeeded;}
+    public String getExerciseName() {return exerciseName;}
 
 
 
